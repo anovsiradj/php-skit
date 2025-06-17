@@ -1,0 +1,23 @@
+{
+    "name": "anovsiradj/skit",
+    "description": "skit (simple kit) for kiss",
+    "type": "library",
+    "require-dev": {
+        "symfony/var-dumper": "@stable"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "anovsiradj\\skit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "anovsiradj",
+            "email": "anov.siradj22@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.33"
+    }
+}
