@@ -1,0 +1,8 @@
+
+/vendor
+
+/tests/curl/*.stderr
+/tests/curl/*.stdout
+
+/tests/curl/upload_rekues.txt
+/tests/curl/upload_respon.txt
