@@ -9,13 +9,10 @@ $curl = new CURL('http://localhost:8400/anoop/php-skit/tests/curl', [
 ]);
 $curl->url('/client.php');
 $curl->post([
-	0,
-	'null' => null,
-	'empty' => '',
-	'arraykey[0]' => 0,
-	'arraykey[1]' => 1,
-	1,
-	'upload' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
+	'one' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
+
+	'all[1]' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
+	'all[2]' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
 ]);
 $curl->exec();
 

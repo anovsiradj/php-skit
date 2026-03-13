@@ -1,8 +1,14 @@
 
 /vendor
 
+/tests/.env
 /tests/curl/*.stderr
 /tests/curl/*.stdout
 
+/tests/curl/input/
+/tests/curl/output/
+
 /tests/curl/upload_rekues.txt
 /tests/curl/upload_respon.txt
+
+/*.sublime-workspace
