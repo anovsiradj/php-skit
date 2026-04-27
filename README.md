@@ -1,7 +1,7 @@
 
 # `php-skit`
 
-SKit (Simple Kit) for KISS (Keep It Simple, Stupid!).
+SKit (SimpleKit) for KISS (Keep It Simple, Stupid!)
 
 ### motivation
 

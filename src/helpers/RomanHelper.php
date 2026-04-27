@@ -2,7 +2,7 @@
 
 namespace anovsiradj\skit\helpers;
 
-class RomanHelper extends LetterHelper
+abstract class RomanHelper
 {
 	// ...
 }

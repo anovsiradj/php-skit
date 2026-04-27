@@ -2,7 +2,7 @@
 
 namespace anovsiradj\skit\helpers;
 
-class NumberHelper
+abstract class NumberHelper
 {
 	// ...
 }

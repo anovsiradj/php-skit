@@ -1,23 +1,24 @@
 {
     "name": "anovsiradj/skit",
-    "description": "skit (simple kit) for kiss",
+    "description": "SKit (SimpleKit) for KISS (Keep It Simple, Stupid!)",
     "type": "library",
-    "require-dev": {
-        "symfony/var-dumper": "@stable"
-    },
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "anovsiradj\\skit\\": "./src/"
-        }
-    },
     "authors": [
         {
             "name": "anovsiradj",
             "email": "anov.siradj22@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "anovsiradj\\skit\\": "./src"
+        }
+    },
     "require": {
         "php": ">=7.4"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "@stable",
+        "phpoffice/phpspreadsheet": "~1"
     }
 }
