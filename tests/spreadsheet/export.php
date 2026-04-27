@@ -1,6 +1,6 @@
 <?php
 
-use anovsiradj\skit\spreadsheet\ExcelHelper;
+use anovsiradj\skit\spreadsheet\TableHelper;
 
 require __DIR__ . '/../init.php';
 
@@ -9,16 +9,16 @@ $outputExt = 'html'; // xlsx,html,csv,ods
 $inputName = 'export-simple.xlsx';
 $sheetIndex = 0; // 0,1,2
 
-$reader = ExcelHelper::reader();
+$reader = TableHelper::reader();
 $reader->setLoadAllSheets();
 
-$spread = ExcelHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
+$spread = TableHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
 // $spread->getAllSheets();
 
 $sheet = $spread->getSheet($sheetIndex);
 // dd($onesheet);
 
-$writer = ExcelHelper::writer($spread, null, [
+$writer = TableHelper::writer($spread, null, [
 	'ext' => $outputExt,
 ]);
 if ($outputExt === 'html') {
@@ -33,10 +33,10 @@ if ($outputExt === 'xlsx') {
 	/** @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx $writer */
 }
 
-ExcelHelper::writerOutput($spread, $writer, [
+TableHelper::writerOutput($spread, $writer, [
 	'ext' => $outputExt,
 ]);
 
-// ExcelHelper::write
+// TableHelper::write
 // $writer->
 // dd($writer);
