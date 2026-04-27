@@ -1,6 +1,6 @@
 <?php
 
-use anovsiradj\skit\spreadsheet\TableHelper;
+use anovsiradj\skit\spreadsheet\FacadeHelper;
 
 require __DIR__ . '/../init.php';
 
@@ -9,16 +9,16 @@ $outputExt = 'html'; // xlsx,html,csv,ods
 $inputName = 'export-simple.xlsx';
 $sheetIndex = 0; // 0,1,2
 
-$reader = TableHelper::reader();
+$reader = FacadeHelper::reader();
 $reader->setLoadAllSheets();
 
-$spread = TableHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
+$spread = FacadeHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
 // $spread->getAllSheets();
 
 $sheet = $spread->getSheet($sheetIndex);
 // dd($onesheet);
 
-$writer = TableHelper::writer($spread, null, [
+$writer = FacadeHelper::writer($spread, null, [
 	'ext' => $outputExt,
 ]);
 if ($outputExt === 'html') {
@@ -33,10 +33,10 @@ if ($outputExt === 'xlsx') {
 	/** @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx $writer */
 }
 
-TableHelper::writerOutput($spread, $writer, [
+FacadeHelper::writerOutput($spread, $writer, [
 	'ext' => $outputExt,
 ]);
 
-// TableHelper::write
+// FacadeHelper::write
 // $writer->
 // dd($writer);

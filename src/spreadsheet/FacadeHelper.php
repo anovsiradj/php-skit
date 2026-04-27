@@ -28,7 +28,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Html as WriterHtml;
  * for version 4 ...
  * for php7 only work on version 1 that can be use.
  */
-abstract class TableHelper
+abstract class FacadeHelper
 {
 	public static $extDefault = 'xlsx';
 	public static $headerOutputType = 'inline'; // inline,attachment
