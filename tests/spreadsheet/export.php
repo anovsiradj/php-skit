@@ -1,37 +1,42 @@
 <?php
 
-use anovsiradj\skit\vendors\SpreadSheetHelper;
+use anovsiradj\skit\spreadsheet\ExcelHelper;
 
 require __DIR__ . '/../init.php';
 
-$outputExt = 'xlsx'; // xlsx,html,csv,ods
+$outputExt = 'html'; // xlsx,html,csv,ods
 // $inputName = 'export.xlsx';
 $inputName = 'export-simple.xlsx';
 $sheetIndex = 0; // 0,1,2
 
-$reader = SpreadSheetHelper::reader();
+$reader = ExcelHelper::reader();
 $reader->setLoadAllSheets();
 
-$spread = SpreadSheetHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
+$spread = ExcelHelper::readerInput(__DIR__ . "/{$inputName}", $reader);
 // $spread->getAllSheets();
 
 $sheet = $spread->getSheet($sheetIndex);
 // dd($onesheet);
 
-/** @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx */
-$writer = SpreadSheetHelper::writer($spread, null, [
+$writer = ExcelHelper::writer($spread, null, [
 	'ext' => $outputExt,
 ]);
 if ($outputExt === 'html') {
+	/** @var \PhpOffice\PhpSpreadsheet\Writer\Html $writer */
+
+	// only specific sheet
 	$writer->setSheetIndex($sheetIndex);
 	// for html, its breaking the "Structured Reference" of xlsx.
 	$writer->setPreCalculateFormulas(false);
 }
+if ($outputExt === 'xlsx') {
+	/** @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx $writer */
+}
 
-SpreadSheetHelper::writerOutput($spread, $writer, [
+ExcelHelper::writerOutput($spread, $writer, [
 	'ext' => $outputExt,
 ]);
 
-// SpreadSheetHelper::write
+// ExcelHelper::write
 // $writer->
 // dd($writer);
