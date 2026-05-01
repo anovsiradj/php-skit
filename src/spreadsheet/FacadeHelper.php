@@ -2,14 +2,15 @@
 
 namespace anovsiradj\skit\spreadsheet;
 
-use anovsiradj\skit\helpers\LetterHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
 use PhpOffice\PhpSpreadsheet\Reader\Csv as ReaderCsv;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+
 use PhpOffice\PhpSpreadsheet\Writer\BaseWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as WriterOds;
@@ -57,21 +58,6 @@ abstract class FacadeHelper
 		'pdf' => WriterPdf::class,
 	];
 
-	public static function sheetAlters(Worksheet $sheet, $alters, $ymin, $ymax, $xmin, $xmax): void
-	{
-		for ($y = $ymin; $y < $ymax; $y++) {
-			$range = LetterHelper::range($xmin, $xmax);
-			foreach ($range as $x) {
-				$old = $sheet->getCell("$x$y")->getValue();
-				if (empty($old)) {
-					continue;
-				}
-				$new = strtr($old, $alters);
-				$sheet->getCell("$x$y")->setValue($new);
-			}
-		}
-	}
-
 	/**
 	 * @return ReaderXlsx
 	 */
@@ -101,12 +87,6 @@ abstract class FacadeHelper
 	{
 		$reader ??= static::reader($reader, $config);
 		return $reader->load($file);
-	}
-
-	public static function spreadSheetNames($file, ?ReaderXlsx $reader = null)
-	{
-		$reader ??= static::reader($reader);
-		return $reader->listWorksheetNames($file);
 	}
 
 	/**
@@ -189,10 +169,10 @@ abstract class FacadeHelper
 		// eof
 	}
 
-	public static function assign(Cell $kotak, mixed $value, array $styles = [])
+	public static function assign(Cell $cell, mixed $data, array $styles = [])
 	{
-		$kotak->setValue($value);
-		$kotak->getStyle()->applyFromArray($styles);
-		return $kotak;
+		$cell->setValue($data);
+		$cell->getStyle()->applyFromArray($styles);
+		return $cell;
 	}
 }
