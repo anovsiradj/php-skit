@@ -1,0 +1,7 @@
+- [x] Test harness exists (runner + bootstrap + assert helpers) and runs on PHP 7.4.
+- [x] Test runner discovers tests by convention, supports `--list` and `--filter`, prints summary, and uses proper exit codes.
+- [x] `composer test` runs the harness without requiring PHPUnit/Pest.
+- [x] Every `src/**` PHP file has its own corresponding test file with meaningful coverage of primary behavior.
+- [x] Every test file also serves as a how-to/usage/example for the feature it tests (readable and copyable usage snippets).
+- [x] Tests that depend on optional extensions/packages are skipped with clear messages when deps are missing.
+- [x] `php -l` passes for the harness + all tests.

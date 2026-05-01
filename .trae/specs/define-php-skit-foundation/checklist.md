@@ -1,0 +1,6 @@
+- [x] Semua file PHP di `src/`, `bin/`, dan `tests/` memiliki PHPDoc header yang menjelaskan fungsi, tujuan, cara pakai, dependency, dan catatan standalone.
+- [x] `README.md` memiliki “File/Module Index” yang menjelaskan tujuan file/folder penting, termasuk file non-PHP.
+- [x] `composer.json` tetap minimal pada `require` (default hanya `php`), dan dependency opsional dicantumkan di `suggest` dengan alasan singkat.
+- [x] Fitur yang membutuhkan dependency eksternal bersifat opsional dan memberikan pesan error/exception yang jelas saat dependency tidak tersedia.
+- [x] Tidak ada perubahan side-effect yang tidak disengaja pada file helper (include tidak memicu I/O).
+- [x] Linting syntax (`php -l`) lulus untuk semua file yang diubah.

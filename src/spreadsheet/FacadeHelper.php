@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Fasad utilitas untuk membaca/menulis spreadsheet via PhpSpreadsheet.
+ * Cara pakai: Gunakan FacadeHelper::reader()/writer() lalu readerInput()/writerOutput().
+ * Dependency: Opsional phpoffice/phpspreadsheet (tanpa ini modul spreadsheet tidak bisa dipakai).
+ * Catatan standalone: Pakai via Composer autoload (vendor/autoload.php). Untuk copy/require, pastikan dependency terpasang.
+ */
+
 namespace anovsiradj\skit\spreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -67,7 +74,10 @@ abstract class FacadeHelper
 			'ext' => static::$extDefault,
 		], $config);
 
-		$class = static::$extReaders[$config['ext']];
+		$class = static::$extReaders[$config['ext']] ?? null;
+		if (empty($class)) {
+			throw new \InvalidArgumentException("Unknown reader ext: {$config['ext']}");
+		}
 
 		// $tmp = new ReaderXlsx();
 
@@ -99,7 +109,10 @@ abstract class FacadeHelper
 		], $config);
 
 		if (empty($writer)) {
-			$class = static::$extWriters[$config['ext']];
+			$class = static::$extWriters[$config['ext']] ?? null;
+			if (empty($class)) {
+				throw new \InvalidArgumentException("Unknown writer ext: {$config['ext']}");
+			}
 			$writer = new $class($spread);
 		}
 
@@ -169,7 +182,7 @@ abstract class FacadeHelper
 		// eof
 	}
 
-	public static function assign(Cell $cell, mixed $data, array $styles = [])
+	public static function assign(Cell $cell, $data, array $styles = [])
 	{
 		$cell->setValue($data);
 		$cell->getStyle()->applyFromArray($styles);

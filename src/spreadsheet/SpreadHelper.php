@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Kumpulan utilitas kecil untuk operasi worksheet (nama sheet, transform sel massal).
+ * Cara pakai: Panggil SpreadHelper::sheetNames() atau helper lain pada Worksheet.
+ * Dependency: Opsional phpoffice/phpspreadsheet (via FacadeHelper).
+ * Catatan standalone: Pakai via Composer autoload; jika tidak, pastikan dependency spreadsheet terpasang.
+ */
+
 namespace anovsiradj\skit\spreadsheet;
 
 use anovsiradj\skit\helpers\LetterHelper;

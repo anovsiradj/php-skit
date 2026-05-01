@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Abstraksi pemuatan file fungsi global (src/functs) agar bisa dipanggil lewat class.
+ * Cara pakai: Set Funct::$dirs / Funct::$files lalu panggil Funct::loadName() atau method dinamis.
+ * Dependency: Tidak ada dependency eksternal.
+ * Catatan standalone: Pakai via Composer autoload; file functs bisa juga di-require langsung.
+ */
+
 namespace anovsiradj\skit;
 
 /**

@@ -17,11 +17,23 @@
         }
     },
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "symfony/polyfill-php83": "^1.28"
     },
     "require-dev": {
         "fakerphp/faker": "@dev",
         "symfony/var-dumper": "@stable",
         "phpoffice/phpspreadsheet": "~1"
+    },
+    "scripts": {
+        "test": "php tests/run.php"
+    },
+    "suggest": {
+        "ext-curl": "Dibutuhkan untuk src/CURL.php dan contoh di tests/curl/.",
+        "ext-gd": "Dibutuhkan untuk src/functs/ico.php (imageico + mode CLI).",
+        "ext-intl": "Opsional untuk helper internationalization (src/helpers/IntlHelper.php).",
+        "phpoffice/phpspreadsheet": "Opsional untuk modul spreadsheet (src/spreadsheet/* dan tests/spreadsheet/*).",
+        "fakerphp/faker": "Opsional untuk menjalankan contoh data dummy di tests/spreadsheet/create.php.",
+        "symfony/var-dumper": "Opsional untuk fungsi dump()/dd() pada contoh/tests."
     }
 }

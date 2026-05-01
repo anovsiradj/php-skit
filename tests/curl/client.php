@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Endpoint contoh untuk menerima GET/POST/UPLOAD (dipakai oleh tests/curl/*.php).
+ * Cara pakai: Jalankan via web server lokal, lalu akses dari script get.php/post.php/upload.php.
+ * Dependency: Web server lokal + composer install (symfony/var-dumper untuk dump/dd jika dipakai).
+ * Catatan standalone: Script ini bukan test otomatis; ini contoh manual untuk dicoba di browser/CLI.
+ */
+
 require __DIR__ . '/../../vendor/autoload.php';
 
 if (isset($_FILES['upload'])) {

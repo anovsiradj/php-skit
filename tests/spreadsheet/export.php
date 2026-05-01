@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Contoh membaca file XLSX lalu mengekspor ke HTML/XLSX/CSV/ODS.
+ * Cara pakai: composer install lalu php tests/spreadsheet/export.php (sesuaikan $outputExt dan $inputName).
+ * Dependency: phpoffice/phpspreadsheet + composer install.
+ * Catatan standalone: Ini contoh manual; input file ada di folder ini.
+ */
+
 use anovsiradj\skit\spreadsheet\FacadeHelper;
 
 require __DIR__ . '/../init.php';

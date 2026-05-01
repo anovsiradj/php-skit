@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Contoh upload file multipart menggunakan src/CURL.php ke endpoint tests/curl/client.php.
+ * Cara pakai: Jalankan web server lokal untuk folder tests/curl, lalu php tests/curl/upload.php.
+ * Dependency: ext-curl + web server lokal + composer install.
+ * Catatan standalone: Membutuhkan file contoh upload_rekues.txt di folder ini.
+ */
+
 use anovsiradj\skit\CURL;
 
 require __DIR__ . '/../../vendor/autoload.php';

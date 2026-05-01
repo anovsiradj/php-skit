@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Contoh request POST menggunakan src/CURL.php ke endpoint tests/curl/client.php.
+ * Cara pakai: Jalankan web server lokal untuk folder tests/curl, lalu php tests/curl/post.php.
+ * Dependency: ext-curl + web server lokal + composer install.
+ * Catatan standalone: Output disimpan ke file *.stderr/*.stdout di folder ini (opsional).
+ */
+
 use anovsiradj\skit\CURL;
 
 require __DIR__ . '/../../vendor/autoload.php';

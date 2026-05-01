@@ -1,0 +1,5 @@
+- [x] PHP 7.4 remains the minimum supported runtime for the package.
+- [x] Any usage of PHP 8+ core functions in runtime code has a documented decision: PHP 7.4-native equivalent OR minimal Symfony polyfill.
+- [x] Composer dependencies include only polyfills that are actually needed by runtime code (otherwise use `suggest`).
+- [x] README documents which polyfills (if any) are required/optional and why.
+- [x] Tests demonstrate usage and explicitly document whether a code path is native vs polyfilled.

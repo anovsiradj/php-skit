@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Tujuan: Wrapper OO kecil untuk cURL (set URL, headers, POST, capture stdout/stderr).
+ * Cara pakai: $curl = new CURL($prefix, $headers); $curl->url('/path'); $curl->post($data); $curl->exec().
+ * Dependency: ext-curl.
+ * Catatan standalone: Direkomendasikan via Composer autoload; bisa juga require file ini langsung.
+ */
+
 namespace anovsiradj\skit;
 
 use CURLFile;
