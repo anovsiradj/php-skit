@@ -11,7 +11,9 @@
  */
 
 use anovsiradj\skit\App;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('App - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\App'));
+Runner::getInstance()->runTest('App - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\App'));
 });

@@ -3,8 +3,10 @@
 /**
  * Tujuan: Lightweight test runner CLI.
  * Cara pakai: php tests/run.php [--filter <pattern>] [--list]
- * Dependency: tests/bootstrap.php, tests/assert.php
+ * Dependency: tests/bootstrap.php
  */
+
+use anovsiradj\skit\tests\Runner;
 
 if (php_sapi_name() !== 'cli') {
     die("Must be run from CLI");
@@ -38,9 +40,7 @@ if ($listOnly) {
     exit(0);
 }
 
-// Reset results
-global $__test_results;
-$__test_results = ['passed' => 0, 'failed' => 0, 'skipped' => 0, 'errors' => []];
+Runner::getInstance()->reset();
 
 echo "Running Tests...\n\n";
 
@@ -51,14 +51,16 @@ foreach ($testFiles as $file) {
     echo "\n";
 }
 
+$results = Runner::getInstance()->getResults();
+
 echo "==============================\n";
 echo "Summary:\n";
-echo "Passed: {$__test_results['passed']}\n";
-echo "Failed: {$__test_results['failed']}\n";
-echo "Skipped: {$__test_results['skipped']}\n";
+echo "Passed: {$results['passed']}\n";
+echo "Failed: {$results['failed']}\n";
+echo "Skipped: {$results['skipped']}\n";
 echo "==============================\n";
 
-if ($__test_results['failed'] > 0) {
+if ($results['failed'] > 0) {
     exit(1);
 }
 exit(0);

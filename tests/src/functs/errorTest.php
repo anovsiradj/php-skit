@@ -10,7 +10,10 @@
  * ```
  */
 
-test_run('functs/error.php - check function availability', function () {
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
+
+Runner::getInstance()->runTest('functs/error.php - check function availability', function () {
     require_once __DIR__ . '/../../../src/functs/error.php';
-    assert_true(function_exists('functErrorHandleDefault'));
+    Assert::true(function_exists('functErrorHandleDefault'));
 });

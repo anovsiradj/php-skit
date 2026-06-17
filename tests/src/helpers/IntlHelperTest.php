@@ -4,7 +4,9 @@
  * HowTo & Test: anovsiradj\skit\helpers\IntlHelper
  */
 use anovsiradj\skit\helpers\IntlHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('IntlHelper - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\helpers\IntlHelper'));
+Runner::getInstance()->runTest('IntlHelper - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\helpers\IntlHelper'));
 });

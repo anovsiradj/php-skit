@@ -13,9 +13,6 @@ ini_set('display_errors', '1');
 // Autoload composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Load assertion helpers
-require_once __DIR__ . '/assert.php';
-
 // Jika ada env, load
 if (file_exists(__DIR__ . '/.env')) {
     $env = parse_ini_file(__DIR__ . '/.env');

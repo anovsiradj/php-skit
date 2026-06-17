@@ -11,7 +11,9 @@
  */
 
 use anovsiradj\skit\spreadsheet\SpreadHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('SpreadHelper - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\spreadsheet\SpreadHelper'));
+Runner::getInstance()->runTest('SpreadHelper - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\spreadsheet\SpreadHelper'));
 });

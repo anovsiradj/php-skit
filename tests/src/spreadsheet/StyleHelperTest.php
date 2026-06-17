@@ -10,7 +10,9 @@
  */
 
 use anovsiradj\skit\spreadsheet\StyleHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('StyleHelper - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\spreadsheet\StyleHelper'));
+Runner::getInstance()->runTest('StyleHelper - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\spreadsheet\StyleHelper'));
 });

@@ -4,7 +4,9 @@
  * HowTo & Test: anovsiradj\skit\helpers\NumberHelper
  */
 use anovsiradj\skit\helpers\NumberHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('NumberHelper - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\helpers\NumberHelper'));
+Runner::getInstance()->runTest('NumberHelper - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\helpers\NumberHelper'));
 });

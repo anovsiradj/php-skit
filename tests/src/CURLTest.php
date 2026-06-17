@@ -13,14 +13,16 @@
  */
 
 use anovsiradj\skit\CURL;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('CURL - init and build URL', function () {
+Runner::getInstance()->runTest('CURL - init and build URL', function () {
     if (!extension_loaded('curl')) {
-        test_skip('ext-curl not loaded');
+        Assert::skip('ext-curl not loaded');
     }
 
     $curl = new CURL('https://dummyjson.com');
     $curl->url('/products/1', ['limit' => 10]);
 
-    assert_equals('https://dummyjson.com/products/1?limit=10', $curl->url);
+    Assert::equals('https://dummyjson.com/products/1?limit=10', $curl->url);
 });

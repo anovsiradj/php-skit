@@ -4,7 +4,9 @@
  * HowTo & Test: anovsiradj\skit\helpers\RomanHelper
  */
 use anovsiradj\skit\helpers\RomanHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('RomanHelper - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\helpers\RomanHelper'));
+Runner::getInstance()->runTest('RomanHelper - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\helpers\RomanHelper'));
 });

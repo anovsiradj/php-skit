@@ -12,13 +12,15 @@
  */
 
 use anovsiradj\skit\helpers\LetterHelper;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('LetterHelper::range() - single letter', function () {
+Runner::getInstance()->runTest('LetterHelper::range() - single letter', function () {
     $range = LetterHelper::range('A', 'C');
-    assert_equals(['A', 'B', 'C'], $range);
+    Assert::equals(['A', 'B', 'C'], $range);
 });
 
-test_run('LetterHelper::range() - multi letter (using native/polyfill str_increment)', function () {
+Runner::getInstance()->runTest('LetterHelper::range() - multi letter (using native/polyfill str_increment)', function () {
     $range = LetterHelper::range('Z', 'AB');
-    assert_equals(['Z', 'AA', 'AB'], $range);
+    Assert::equals(['Z', 'AA', 'AB'], $range);
 });

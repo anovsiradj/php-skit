@@ -11,7 +11,10 @@
  * ```
  */
 
-test_run('files/arguments.php - parse CLI args', function () {
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
+
+Runner::getInstance()->runTest('files/arguments.php - parse CLI args', function () {
     global $argv;
     $argvBackup = $argv;
 
@@ -21,7 +24,7 @@ test_run('files/arguments.php - parse CLI args', function () {
     // require file returns the array directly
     $args = require __DIR__ . '/../../../src/files/arguments.php';
 
-    assert_equals(['a' => '1', 'b' => '2', 'c' => '3'], $args);
+    Assert::equals(['a' => '1', 'b' => '2', 'c' => '3'], $args);
 
     // Restore
     $argv = $argvBackup;

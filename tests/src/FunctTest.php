@@ -11,7 +11,9 @@
  */
 
 use anovsiradj\skit\Funct;
+use anovsiradj\skit\tests\Runner;
+use anovsiradj\skit\tests\Assert;
 
-test_run('Funct - class exists', function () {
-    assert_true(class_exists('anovsiradj\skit\Funct'));
+Runner::getInstance()->runTest('Funct - class exists', function () {
+    Assert::true(class_exists('anovsiradj\skit\Funct'));
 });
