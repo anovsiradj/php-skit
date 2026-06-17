@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Tujuan: Konversi gambar menjadi file ICO (fungsi imageico + mode CLI).
+ * Cara pakai: require file ini lalu panggil imageico($im, $output). Atau CLI: php src/functs/ico.php input.png
+ * Dependency: ext-gd.
+ * Catatan standalone: Bisa dipakai tanpa Composer; pastikan ekstensi GD aktif.
+ */
+
+/**
  * Output an ICO image to either the standard output or a file.
  *
  * It takes the same arguments as 'imagepng' from the GD library. Works by
@@ -42,33 +49,33 @@ function imageico($image, $filename = null, $quality = 9, $filters = PNG_NO_FILT
 	}
 }
 
-// Logic to use this as CLI script.
-// Run 'php img2ico.php {your_image_file}' to output an ICO image.
-// This requires the GD library.
-
-if (!defined('STDERR')) {
-	define('STDERR', fopen('php://stderr', 'r'));
-}
-
-if ($argc >= 2) {
-	$input_file = $argv[1];
-	$output_file = $input_file . '.ico';
-	if (!is_file($input_file)) {
-		fwrite(STDERR, "File '{$input_file}' not found.\n");
-		exit(2);
-	} else if (is_file($output_file)) {
-		fwrite(STDERR, "Output file '{$output_file}' exists. Will not overwrite.\n");
-		exit(3);
+$__file = realpath(__FILE__);
+$__argv0 = isset($argv[0]) ? realpath($argv[0]) : null;
+if (PHP_SAPI === 'cli' && $__file && $__argv0 && $__argv0 === $__file) {
+	if (!defined('STDERR')) {
+		define('STDERR', fopen('php://stderr', 'r'));
 	}
-	$im = @imagecreatefromstring(file_get_contents($input_file));
-	if (!$im) {
-		fwrite(STDERR, "File '{$input_file}' is not a valid image file.\n");
-		exit(4);
+
+	if ($argc >= 2) {
+		$input_file = $argv[1];
+		$output_file = $input_file . '.ico';
+		if (!is_file($input_file)) {
+			fwrite(STDERR, "File '{$input_file}' not found.\n");
+			exit(2);
+		} else if (is_file($output_file)) {
+			fwrite(STDERR, "Output file '{$output_file}' exists. Will not overwrite.\n");
+			exit(3);
+		}
+		$im = @imagecreatefromstring(file_get_contents($input_file));
+		if (!$im) {
+			fwrite(STDERR, "File '{$input_file}' is not a valid image file.\n");
+			exit(4);
+		}
+		imageico($im, $output_file);
+		imagedestroy($im);
+		exit(0);
+	} else {
+		fwrite(STDERR, "No input file.\n");
+		exit(1);
 	}
-	imageico($im, $output_file);
-	imagedestroy($im);
-	exit(0);
-} else {
-	fwrite(STDERR, "No input file.\n");
-	exit(1);
 }

@@ -1,5 +1,5 @@
 {
-    "name": "anovsiradj/skit",
+    "name": "anovsiradj/php-skit",
     "description": "SKit (SimpleKit) for KISS (Keep It Simple, Stupid!)",
     "type": "library",
     "license": "MIT",
@@ -17,11 +17,11 @@
         }
     },
     "require": {
-        "php": ">=7.4",
-        "symfony/polyfill-php83": "^1.28"
+        "php": ">=7.4"
     },
     "require-dev": {
         "fakerphp/faker": "@dev",
+        "symfony/dotenv": "@stable",
         "symfony/var-dumper": "@stable",
         "phpoffice/phpspreadsheet": "~1"
     },
