@@ -6,7 +6,7 @@
 
 - [x] Task 2: Implement the lightweight test harness (pure PHP)
   - [x] Add `tests/run.php` CLI runner (discover, execute, summarize, exit codes)
-  - [x] Add `tests/bootstrap.php` (autoload + shared helpers)
+  - [x] Add `tests/init.php` (autoload + shared helpers)
   - [x] Add `tests/assert.php` (minimal assertions + skip helper)
   - [x] Add basic CLI flags: `--list`, `--filter <pattern>`, `--verbose`
 

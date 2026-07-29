@@ -20,6 +20,8 @@ $curl->post([
 
 	'all[1]' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
 	'all[2]' => new CURLFile(__DIR__ . '/upload_rekues.txt', 'text/plain'),
+	'upload' => $curl->file(__DIR__ . '/../../logo.png'),
+	'text' => $curl->file(__DIR__ . '/../../README.md'),
 ]);
 $curl->exec();
 

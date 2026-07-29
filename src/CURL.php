@@ -5,6 +5,10 @@
  * Cara pakai: $curl = new CURL($prefix, $headers); $curl->url('/path'); $curl->post($data); $curl->exec().
  * Dependency: ext-curl.
  * Catatan standalone: Direkomendasikan via Composer autoload; bisa juga require file ini langsung.
+ * 
+ * @source kt_ifm_gtid_web,rental_web.
+ * 
+ * @link https://www.php.net/manual/en/function.curl-close.php
  */
 
 namespace anovsiradj\skit;
@@ -19,6 +23,32 @@ class CURL
 	const TYPE_JSON = 'application/json';
 	const TYPE_TEXT = 'text/plain';
 
+	public static $fileMimes = [
+		'txt'  => 'text/plain',
+		'html' => 'text/html',
+		'htm'  => 'text/html',
+		'css'  => 'text/css',
+		'js'   => 'application/javascript',
+		'json' => 'application/json',
+		'xml'  => 'application/xml',
+		'pdf'  => 'application/pdf',
+		'jpg'  => 'image/jpeg',
+		'jpeg' => 'image/jpeg',
+		'png'  => 'image/png',
+		'gif'  => 'image/gif',
+		'svg'  => 'image/svg+xml',
+		'webp' => 'image/webp',
+		'zip'  => 'application/zip',
+		'csv'  => 'text/csv',
+		'xls'  => 'application/vnd.ms-excel',
+		'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		'doc'  => 'application/msword',
+		'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		'mp3'  => 'audio/mpeg',
+		'mp4'  => 'video/mp4',
+		'wav'  => 'audio/wav',
+	];
+
 	private $stderr = null;
 
 	public static $defaults = [
@@ -28,13 +58,15 @@ class CURL
 	];
 
 	/**
-	 * @var CurlHandle
+	 * @var CurlHandle|resource|null
 	 */
 	public $handle;
 
 	public $prefix;
 	public $url;
 	public $data;
+	public $error;
+	public $errno;
 
 	public $reqHeaders = [];
 	public $resHeaders = [];
@@ -53,7 +85,10 @@ class CURL
 
 	public function url($suffix, array $params = [])
 	{
-		$url = $this->prefix . $suffix . '?' . http_build_query($params);
+		$url = $this->prefix . $suffix;
+		if ($params) {
+			$url .= '?' . http_build_query($params);
+		}
 		$this->url = $url;
 		$this->opt(CURLOPT_URL, $url);
 	}
@@ -85,9 +120,14 @@ class CURL
 	}
 
 	/**
-	 * @link https://gist.github.com/iansltx/a6ed41d19852adf2e496#file-multipartfromstrings-php
-	 * @todo https://github.com/robtimus/php-multipart
-	 * @deprecated
+	 * Manual multipart body builder.
+	 *
+	 * NOTE: Not needed in practice — cURL auto-switches to multipart/form-data
+	 * when CURLFile objects are present in CURLOPT_POSTFIELDS array.
+	 *
+	 * @link     https://gist.github.com/iansltx/a6ed41d19852adf2e496#file-multipartfromstrings-php
+	 * @link     https://github.com/robtimus/php-multipart
+	 * @internal
 	 **/
 	public function multipart(array $params, $boundary = null)
 	{
@@ -153,6 +193,67 @@ class CURL
 		$this->opt(CURLOPT_POSTFIELDS, $params);
 	}
 
+	public function nonHtmlFormMethod($method, $params, $type = null)
+	{
+		$type ??= static::TYPE_JSON;
+
+		if ($type === static::TYPE_JSON) {
+			$this->reqHeaders[] = "Content-Type: {$type}";
+			$params = json_encode($params, JSON_THROW_ON_ERROR | JSON_HEX_AMP | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT);
+		}
+
+		$this->opt(CURLOPT_POSTFIELDS, $params);
+		$this->opt(CURLOPT_CUSTOMREQUEST, $method);
+	}
+
+	public function put($params, $type = null)
+	{
+		$this->nonHtmlFormMethod('PUT', $params, $type);
+	}
+
+	public function patch($params, $type = null)
+	{
+		$this->nonHtmlFormMethod('PATCH', $params, $type);
+	}
+
+	public function delete($params = null, $type = null)
+	{
+		if (isset($params)) {
+			$type ??= static::TYPE_URLE;
+
+			if ($type === static::TYPE_JSON) {
+				$this->reqHeaders[] = "Content-Type: {$type}";
+				$params = json_encode($params, JSON_THROW_ON_ERROR | JSON_HEX_AMP | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT);
+			}
+
+			$this->opt(CURLOPT_POSTFIELDS, $params);
+		}
+
+		$this->opt(CURLOPT_CUSTOMREQUEST, 'DELETE');
+	}
+
+	public static function file(string $path, ?string $mime = null, ?string $postname = null): CURLFile
+	{
+		if (empty($mime) && function_exists('mime_content_type')) {
+			$mime = mime_content_type($path);
+		}
+		if (empty($mime)) {
+			$mime = static::fileMimeFromExt($path);
+		}
+
+		if (empty($postname)) {
+			$postname = basename($path);
+		}
+
+		return new CURLFile($path, $mime, $postname);
+	}
+
+	private static function fileMimeFromExt(string $path): string
+	{
+		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+		return static::$fileMimes[$ext] ?? 'application/octet-stream';
+	}
+
 	public function exec($stderr = null, $stdout = null)
 	{
 		if ($stderr) {
@@ -174,6 +275,11 @@ class CURL
 
 		$this->opt(CURLOPT_HTTPHEADER, $this->reqHeaders);
 		$result = curl_exec($this->handle);
+
+		if ($result === false) {
+			$this->errno = curl_errno($this->handle);
+			$this->error = curl_error($this->handle);
+		}
 
 		if ($stdout) {
 			file_put_contents($stdout, $result . str_repeat(PHP_EOL, 3), FILE_APPEND);

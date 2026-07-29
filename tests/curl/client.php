@@ -9,14 +9,27 @@
 
 require __DIR__ . '/../init.php';
 
-if (isset($_FILES['upload'])) {
-	if ($_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
-		dd($_FILES['upload']);
+
+$dir = __DIR__ . '/output';
+if (!is_dir($dir)) {
+	mkdir($dir);
+}
+
+// dd($_FILES);
+foreach (array_keys($_FILES) as $i => $k) {
+	// untuk array skip, belum bisa handle.
+	if (is_array($_FILES[$k]['error'])) {
+		continue;
 	}
-	move_uploaded_file(
-		$_FILES['upload']['tmp_name'],
-		__DIR__ . '/upload_respon.txt',
-	);
+	if ($_FILES[$k]['error'] !== UPLOAD_ERR_OK) {
+		dd($_FILES[$k]);
+	}
+	// dd($_FILES['upload']);
+
+	$in = $_FILES[$k]['tmp_name'];
+	$out = sprintf('%d.%d.%s', time(), $i, $_FILES[$k]['name']);
+
+	move_uploaded_file($in, "{$dir}/{$out}");
 }
 
 // dd($_SERVER);

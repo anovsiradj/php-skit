@@ -1,0 +1,5 @@
+- [ ] The spec clearly states that runtime support remains PHP 7.4.
+- [ ] The spec clearly states that development uses PHP 8.5.
+- [ ] The spec explains how development on PHP 8.5 avoids breaking PHP 7.4 runtime compatibility.
+- [ ] The spec clarifies how this policy interacts with tests, tooling, and polyfills.
+- [ ] The task list is specific enough to implement the policy without changing the runtime contract.
