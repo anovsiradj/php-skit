@@ -9,7 +9,7 @@
 
 use anovsiradj\skit\CURL;
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../init.php';
 
 $curl = new CURL('http://localhost:8400/anoop/php-skit/tests/curl', [
 	'Accept: application/json', // content negotiation

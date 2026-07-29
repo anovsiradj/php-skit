@@ -5,6 +5,7 @@
 /tests/curl/*.stderr
 /tests/curl/*.stdout
 
+/tests/tmp/
 /tests/curl/input/
 /tests/curl/output/
 

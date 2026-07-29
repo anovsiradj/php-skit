@@ -9,7 +9,7 @@
 
 use anovsiradj\skit\CURL;
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../init.php';
 
 $stderr = __DIR__ . '/post.stderr';
 $stdout = __DIR__ . '/post.stdout';

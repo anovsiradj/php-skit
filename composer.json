@@ -23,7 +23,10 @@
         "fakerphp/faker": "@dev",
         "symfony/dotenv": "@stable",
         "symfony/var-dumper": "@stable",
-        "phpoffice/phpspreadsheet": "~1"
+        "phpoffice/phpspreadsheet": "~1",
+        "symfony/polyfill-php83": "^1.41",
+        "symfony/polyfill-php84": "^1.38",
+        "symfony/polyfill-php85": "^1.41"
     },
     "scripts": {
         "test": "php tests/run.php"

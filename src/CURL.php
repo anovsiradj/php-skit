@@ -206,7 +206,7 @@ class CURL
 	{
 		$this->stderrClose();
 
-		if (isset($this->handle)) {
+		if (version_compare(PHP_VERSION, '8.0.0', '<') && isset($this->handle)) {
 			curl_close($this->handle);
 		}
 	}

@@ -7,7 +7,7 @@
  * Catatan standalone: Script ini bukan test otomatis; ini contoh manual untuk dicoba di browser/CLI.
  */
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../init.php';
 
 if (isset($_FILES['upload'])) {
 	if ($_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
