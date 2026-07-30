@@ -6,7 +6,7 @@
  * Dependency: ext-curl.
  * Catatan standalone: Direkomendasikan via Composer autoload; bisa juga require file ini langsung.
  * 
- * @source kt_ifm_gtid_web,rental_web.
+ * @source kt_ifm_gtid_web,rental_web,intanbanjar_portal_web.
  * 
  * @link https://www.php.net/manual/en/function.curl-close.php
  */

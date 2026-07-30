@@ -9,7 +9,6 @@
 
 require __DIR__ . '/../init.php';
 
-
 $dir = __DIR__ . '/output';
 if (!is_dir($dir)) {
 	mkdir($dir);
