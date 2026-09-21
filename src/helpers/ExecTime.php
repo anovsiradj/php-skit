@@ -4,7 +4,7 @@ namespace anovsiradj\skit\helpers;
 
 /**
  * origin: C:\projects\SIGAP_KLHK\sigap_forge\jeemce\extras\ExecTime.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-21
  */
 

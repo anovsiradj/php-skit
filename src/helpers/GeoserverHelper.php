@@ -4,7 +4,7 @@ namespace anovsiradj\skit\helpers;
 
 /**
  * origin: C:\works\legacy\jolie_warehouse\helpers\GeoserverHelper.php, C:\works\legacy\persada_konstruksi\helpers\GeoserverHelper.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-19
  */
 

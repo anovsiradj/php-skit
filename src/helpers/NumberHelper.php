@@ -4,7 +4,7 @@ namespace anovsiradj\skit\helpers;
 
 /**
  * origin: C:\works\phpmono\pkgs\yii2-skit\src\helpers\NumberHelper.php (moved to php-skit for generic use), C:\works\legacy\simlpu_web\common\components\Angka.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-21
  */
 
@@ -109,5 +109,55 @@ abstract class NumberHelper
         }
 
         return ucfirst(strtolower($result));
+    }
+
+    public static function shortCurrency($nominal, $digit = 0)
+    {
+        $suffix = [1 => '', 'Rb', 'Jt', 'M', 'T'];
+        $pangkat = 1;
+        $hasil = $nominal;
+
+        while ($pangkat <= 5) {
+            $kelompok = pow(1000, $pangkat);
+            if ($nominal >= $kelompok) {
+                $hasil = $nominal / $kelompok;
+                $pangkat++;
+            } else {
+                break;
+            }
+        }
+
+        $satuan = $suffix[$pangkat] ?? 'T';
+
+        return static::format($hasil, $digit) . ' ' . $satuan;
+    }
+
+    public static function growthRate(array $list)
+    {
+        if (empty($list)) {
+            return 0;
+        }
+
+        $first = true;
+        $prev = 0;
+        $pertumbuhan = 0;
+        $count = 0;
+
+        foreach ($list as $current) {
+            if ($first) {
+                $prev = $current;
+                $first = false;
+                continue;
+            }
+            if ($prev > 0) {
+                $pertumbuhan += (($current - $prev) / $prev) * 100;
+            } elseif ($current > 0) {
+                $pertumbuhan += 100;
+            }
+            $prev = $current;
+            $count++;
+        }
+
+        return $count ? round($pertumbuhan / $count, 2) : 0;
     }
 }

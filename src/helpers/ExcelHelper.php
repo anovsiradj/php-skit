@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
 
 /**
  * origin: C:\works\legacy\kt_ifm_gtid_web\common\components\ExcelHelper.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-19
  */
 

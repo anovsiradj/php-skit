@@ -6,7 +6,7 @@ use DateTime;
 
 /**
  * origin: C:\works\legacy\kt_ifm_gtid_web\common\components\DateHelper.php, C:\works\legacy\persada_konstruksi\components\DateHelper.php, C:\works\legacy\jogjaprov_pangripta_app2\common\components\Date.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-21
  */
 

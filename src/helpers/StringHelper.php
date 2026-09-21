@@ -4,7 +4,7 @@ namespace anovsiradj\skit\helpers;
 
 /**
  * origin: C:\works\legacy\simlpu_web\common\components\DataString.php
- * author: anovsiradj, Meta/Muse Glimmer
+ * author: anovsiradj, custom_hcnsec/Qwen3.8-Flash-Next
  * version: 2026-09-21
  */
 
