@@ -234,11 +234,8 @@ class CURL
 
 	public static function file(string $path, ?string $mime = null, ?string $postname = null): CURLFile
 	{
-		if (empty($mime) && function_exists('mime_content_type')) {
-			$mime = mime_content_type($path);
-		}
 		if (empty($mime)) {
-			$mime = static::fileMimeFromExt($path);
+			$mime = static::fileMime($path);
 		}
 
 		if (empty($postname)) {
@@ -248,10 +245,22 @@ class CURL
 		return new CURLFile($path, $mime, $postname);
 	}
 
-	private static function fileMimeFromExt(string $path): string
+	public static function fileMime(string $path, string $fallback = 'application/octet-stream'): string
+	{
+		if (function_exists('mime_content_type')) {
+			$mime = @mime_content_type($path);
+			if (!empty($mime)) {
+				return $mime;
+			}
+		}
+
+		return static::fileMimeFromExt($path, $fallback);
+	}
+
+	public static function fileMimeFromExt(string $path, string $fallback = 'application/octet-stream'): string
 	{
 		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-		return static::$fileMimes[$ext] ?? 'application/octet-stream';
+		return static::$fileMimes[$ext] ?? $fallback;
 	}
 
 	public function exec($stderr = null, $stdout = null)

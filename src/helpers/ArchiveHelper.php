@@ -33,4 +33,21 @@ abstract class ArchiveHelper
         $zip->close();
         return $destination;
     }
+
+    public static function extractZip($source, $destination)
+    {
+        if (!extension_loaded('zip')) {
+            throw new \RuntimeException('zip extension not loaded');
+        }
+        $zip = new ZipArchive();
+        if ($zip->open($source) !== true) {
+            throw new \RuntimeException("Unable to open zip: {$source}");
+        }
+        if (!is_dir($destination) && !mkdir($destination, 0777, true) && !is_dir($destination)) {
+            throw new \RuntimeException("Unable to create dir: {$destination}");
+        }
+        $zip->extractTo($destination);
+        $zip->close();
+        return $destination;
+    }
 }
