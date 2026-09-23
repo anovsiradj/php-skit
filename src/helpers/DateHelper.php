@@ -129,4 +129,76 @@ abstract class DateHelper
 
         return floor($diff / 31536000) . ' tahun yang lalu';
     }
+
+    /**
+     * parse tanggal berbagai format (asumsi konvensi Indonesia d/m/Y) ke 'Y-m-d'; null jika gagal.
+     */
+    public static function parseDate($tanggal)
+    {
+        list($date, ) = static::splitDateTime($tanggal);
+
+        return $date;
+    }
+
+    /**
+     * parse ke 'Y-m-d H:i:s'; $time opsional ('14:30', '2.30', '14:30:15', '2:30 pm').
+     */
+    public static function parseDateTime($tanggal, $time = null)
+    {
+        list($date, $inTime) = static::splitDateTime($tanggal);
+        if (!$date) {
+            return null;
+        }
+
+        $time = $time ?: $inTime;
+        if (!$time) {
+            return $date . ' 00:00:00';
+        }
+
+        $ts = strtotime($time);
+
+        return $ts ? $date . ' ' . date('H:i:s', $ts) : null;
+    }
+
+    /**
+     * @return array{0:?string,1:?string} [tanggal Y-m-d, jam mentah]
+     */
+    protected static function splitDateTime($tanggal)
+    {
+        if (!$tanggal || ($tanggal = trim((string) $tanggal)) === '' || $tanggal === '-') {
+            return [null, null];
+        }
+
+        $time = null;
+        if (preg_match('#^(.*?)\s+(\d{1,2}[:.]\d{2}(?:[:.]\d{2})?(?:\s*[ap]\.?m\.?)?)$#i', $tanggal, $m)) {
+            $tanggal = $m[1];
+            $time = $m[2];
+        }
+
+        $date = null;
+        if (preg_match('#^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$#', $tanggal, $m)) {
+            $date = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+        } elseif (preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2})$#', $tanggal, $m)) {
+            $date = sprintf('%04d-%02d-%02d', $m[1], $m[2], $m[3]);
+        } elseif (preg_match('#^(\d{1,2})\s+([A-Za-z]+)\.?\s+(\d{4})$#', $tanggal, $m) && ($bulan = static::bulanIndex($m[2]))) {
+            $date = sprintf('%04d-%02d-%02d', $m[3], $bulan, $m[1]);
+        } else {
+            $ts = strtotime($tanggal);
+            $date = $ts ? date('Y-m-d', $ts) : null;
+        }
+
+        return [$date, $time];
+    }
+
+    protected static function bulanIndex($nama)
+    {
+        $nama = ucfirst(strtolower($nama));
+        foreach (range(1, 12) as $i) {
+            if ($nama === static::namaBulan($i) || $nama === static::namaBulanPendek($i)) {
+                return $i;
+            }
+        }
+
+        return null;
+    }
 }

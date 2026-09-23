@@ -31,9 +31,16 @@
     "scripts": {
         "test": "php tests/run.php"
     },
+    "bin": [
+        "bin/cli-connect.php",
+        "bin/cli-inspect.php"
+    ],
     "suggest": {
         "ext-curl": "Dibutuhkan untuk src/CURL.php dan contoh di tests/curl/.",
-        "ext-gd": "Dibutuhkan untuk src/functs/ico.php (imageico + mode CLI).",
+        "ext-gd": "Dibutuhkan untuk src/functs/ico.php (imageico + mode CLI) dan src/helpers/ImageHelper.php.",
+        "ext-zip": "Dibutuhkan untuk src/helpers/BackupHelper.php dan ArchiveHelper.php.",
+        "ext-pdo_sqlite": "Dibutuhkan bin/cli-connect.php & bin/cli-inspect.php saat DB_CONNECTION=sqlite.",
+        "symfony/dotenv": "Opsional: bin/cli-*.php membaca .env bila paket ini terpasang; tanpa ini hanya env proses.",
         "ext-intl": "Opsional untuk helper internationalization (src/helpers/IntlHelper.php).",
         "phpoffice/phpspreadsheet": "Opsional untuk modul spreadsheet (src/spreadsheet/* dan tests/spreadsheet/*).",
         "fakerphp/faker": "Opsional untuk menjalankan contoh data dummy di tests/spreadsheet/create.php.",

@@ -106,4 +106,61 @@ abstract class ImageHelper
 
         return $frame;
     }
+
+    /**
+     * titik tempel watermark utk sudut/center; $placement bisa juga ['x'=>..,'y'=>..]
+     *
+     * @return array{x:int,y:int}
+     */
+    public static function watermarkPlacement($placement, $imgW, $imgH, $wmW, $wmH, $padding = 16)
+    {
+        if (is_array($placement) && isset($placement['x'], $placement['y'])) {
+            return ['x' => (int) $placement['x'], 'y' => (int) $placement['y']];
+        }
+
+        $placements = [
+            'top-left' => [$padding, $padding],
+            'top-right' => [$imgW - $wmW - $padding, $padding],
+            'bottom-left' => [$padding, $imgH - $wmH - $padding],
+            'center' => [intdiv($imgW - $wmW, 2), intdiv($imgH - $wmH, 2)],
+            'bottom-right' => [$imgW - $wmW - $padding, $imgH - $wmH - $padding],
+        ];
+
+        $xy = $placements[$placement] ?? $placements['bottom-right'];
+
+        return ['x' => $xy[0], 'y' => $xy[1]];
+    }
+
+    /**
+     * tempel watermark (path file atau gd resource) ke image.
+     */
+    public static function watermark($image, $watermark, $placement = 'bottom-right', $alpha = 100, $padding = 16)
+    {
+        if (is_string($watermark)) {
+            $watermark = static::read($watermark);
+        }
+        if (!$watermark) {
+            return $image;
+        }
+
+        $pos = static::watermarkPlacement(
+            $placement,
+            imagesx($image),
+            imagesy($image),
+            imagesx($watermark),
+            imagesy($watermark),
+            $padding
+        );
+
+        $wmW = imagesx($watermark);
+        $wmH = imagesy($watermark);
+
+        if ($alpha >= 100) {
+            imagecopy($image, $watermark, $pos['x'], $pos['y'], 0, 0, $wmW, $wmH);
+        } else {
+            imagecopymerge($image, $watermark, $pos['x'], $pos['y'], 0, 0, $wmW, $wmH, $alpha);
+        }
+
+        return $image;
+    }
 }
