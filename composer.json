@@ -44,6 +44,7 @@
         "ext-intl": "Opsional untuk helper internationalization (src/helpers/IntlHelper.php).",
         "phpoffice/phpspreadsheet": "Opsional untuk modul spreadsheet (src/spreadsheet/* dan tests/spreadsheet/*).",
         "fakerphp/faker": "Opsional untuk menjalankan contoh data dummy di tests/spreadsheet/create.php.",
-        "symfony/var-dumper": "Opsional untuk fungsi dump()/dd() pada contoh/tests."
+        "symfony/var-dumper": "Opsional untuk fungsi dump()/dd() pada contoh/tests.",
+        "spatie/laravel-html": "^3.13 dibutuhkan src/helpers/HtmlHelper.php (elemen Spatie\\Html saja)."
     }
 }
