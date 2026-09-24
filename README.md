@@ -31,7 +31,7 @@ src/ (library code)
 - functs/ (global functions; not PSR-4 classes)
   - error.php: default error handler function for Funct
   - ico.php: imageico() + CLI script logic (GD required)
-- helpers/: Archive, Array, Backup, Csv, Date, Excel, ExecTime, File, FileSize, Helper(dump), Html(Spatie elements), Http, Image, Intl, Letter, MenuBuilder, Number, Roman, Signature, SpreadsheetStyle, String, Time, Tree, Url, Youtube
+- helpers/: Archive, Array, Backup, Csv, Date, Excel, ExecTime, File, FileSize, Helper(dump), Http, Image, Intl, Letter, MenuBuilder, Number, Roman, Signature, SpreadsheetStyle, String, Time, Tree, Url, Youtube (HtmlHelper sudah pindah ke laravel-skit: Spatie\Html terikat illuminate)
 - spreadsheet/ (PhpSpreadsheet helpers; optional module)
   - FacadeHelper.php: reader/writer facade + output helpers
   - SpreadHelper.php: sheet helper utilities (e.g., list sheet names, bulk cell transforms)
