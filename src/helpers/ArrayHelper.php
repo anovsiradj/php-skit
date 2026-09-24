@@ -82,6 +82,26 @@ abstract class ArrayHelper
     }
 
     /**
+     * array panjang $length terisi $value; $value Closure dipanggil dgn index.
+     *
+     * contoh:
+     * ```php
+     * fill(3, 'a');            // ['a','a','a']
+     * fill(3, fn($i) => $i*2); // [0,2,4]
+     * ```
+     *
+     * origin: C:\projects\SIGAP_KLHK\sigap_forge\jeemce\ArrayHelper.php::fill
+     */
+    public static function fill(int $length, $value)
+    {
+        $result = [];
+        for ($i = 0; $i < $length; $i++) {
+            $result[$i] = $value instanceof Closure ? $value($i) : $value;
+        }
+        return $result;
+    }
+
+    /**
      * melakukan `merge()` passing-by-reference
      *
      * @link https://www.php.net/manual/en/language.references.pass.php
@@ -133,6 +153,8 @@ abstract class ArrayHelper
 
     /**
      * hapus val (rekursif) passing-by-reference.
+     *
+     * val bisa berupa regexp, dengan syarat prefix dan suffix dari val berupa '/'.
      */
     public static function removeVal(array &$array, array $vals = [])
     {
@@ -142,6 +164,11 @@ abstract class ArrayHelper
             } else {
                 foreach ($vals as $val) {
                     if ($array[$key] === $val) {
+                        unset($array[$key]);
+                        break;
+                    }
+                    if (is_string($val) && strlen($val) > 1 && $val[0] === '/' && $val[strlen($val) - 1] === '/'
+                        && is_string($array[$key]) && preg_match($val, $array[$key]) === 1) {
                         unset($array[$key]);
                         break;
                     }

@@ -60,4 +60,35 @@ abstract class FileHelper
 
         return $candidate;
     }
+
+    /**
+     * hapus isi direktori secara rekursif.
+     *
+     * origin: C:\projects\SIGAP_KLHK\sigap_forge\jeemce\Helper.php::deleteFolder
+     *
+     * @param bool $keepRoot true: folder root tetap ada (isi saja yang terhapus)
+     */
+    public static function deleteFolder($dir, bool $keepRoot = true)
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        foreach (scandir($dir) as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            $path = rtrim($dir, '/\\') . DIRECTORY_SEPARATOR . $file;
+            if (is_link($path) || is_file($path)) {
+                unlink($path);
+            } elseif (is_dir($path)) {
+                static::deleteFolder($path, false);
+            }
+        }
+
+        if (!$keepRoot) {
+            rmdir($dir);
+        }
+    }
 }

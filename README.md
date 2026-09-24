@@ -13,50 +13,43 @@ SKit (SimpleKit) for KISS (Keep It Simple, Stupid!)
 ### purpose
 
 - standalone
-- LTS (Long-Term Support), php7 and beyond.
-- ... maybe in the future, php8 and beyond.
-- ... i was thinking about php5, but nah.
+- baseline php >= 8.0 (polyfill-php83 dipakai agar `str_increment`/`str_decrement` tetap jalan di 8.0-8.2)
 
 ### file/module index
 
 root
 - README.md: project intro + index
 - composer.json: package metadata + PSR-4 autoload (anovsiradj\skit\ => src/)
-- composer.lock: locked dependency versions (for development)
 - .gitignore: git ignore rules
-- php-skit.code-workspace: VS Code workspace
-- php-skit.sublime-project: Sublime Text project
-- .trae/specs/define-php-skit-foundation/: internal specs/checklist/tasks
 
 src/ (library code)
-- App.php: base app abstraction (currently placeholder)
-- CURL.php: small OO wrapper around cURL (headers, post types, stdout/stderr capture)
-- Funct.php: function-loader abstraction for src/functs (currently placeholder/stub)
+- App.php: base app abstraction + config/env loader
+- CURL.php: small OO wrapper around cURL (headers, post types, stdout/stderr capture, fileMime)
+- Funct.php: function-loader abstraction for src/functs
 - files/
   - arguments.php: standalone snippet to parse CLI args into array (returns $arguments)
 - functs/ (global functions; not PSR-4 classes)
   - error.php: default error handler function for Funct
   - ico.php: imageico() + CLI script logic (GD required)
-- helpers/ (small reusable helpers)
-  - DateHelper.php, TimeHelper.php, IntlHelper.php, NumberHelper.php, RomanHelper.php, LetterHelper.php
+- helpers/: Archive, Array, Backup, Csv, Date, Excel, ExecTime, File, FileSize, Helper(dump), Html(Spatie elements), Http, Image, Intl, Letter, MenuBuilder, Number, Roman, Signature, SpreadsheetStyle, String, Time, Tree, Url, Youtube
 - spreadsheet/ (PhpSpreadsheet helpers; optional module)
   - FacadeHelper.php: reader/writer facade + output helpers
   - SpreadHelper.php: sheet helper utilities (e.g., list sheet names, bulk cell transforms)
   - StyleHelper.php: styling helper utilities
+- tests/: Runner + Assert, lightweight harness reused by sibling packages (laravel-skit, yii2-skit, php-gis)
 
 bin/ (CLI entrypoints)
-- ico.php: placeholder (empty for now)
+- cli-connect.php, cli-inspect.php: DB connect/inspect via PDO (sqlite butuh ext-pdo_sqlite)
 
-tests/ (example scripts)
-- init.php: require Composer autoload
-- curl/: local HTTP client/server examples for CURL.php (requires local server)
-- spreadsheet/: examples for spreadsheet helpers (requires phpoffice/phpspreadsheet + fakerphp/faker)
+tests/
+- run.php + init.php + src/**/*Test.php: test-as-howto (lihat bagian tests & howto)
+- curl/, spreadsheet/: manual examples requiring local server / phpoffice
 
 
 ### standalone usage
 
 via composer (recommended)
-- install: composer require anovsiradj/skit
+- install: composer require anovsiradj/php-skit
 - usage: require vendor/autoload.php then use classes from src/ (PSR-4)
 
 per-file (copy/require)
@@ -69,7 +62,7 @@ per-file (copy/require)
 - spreadsheet module: composer require phpoffice/phpspreadsheet
   - note: src/spreadsheet/* will throw a clear RuntimeException if PhpSpreadsheet is not installed
 - examples: fakerphp/faker and symfony/var-dumper are only needed for tests/examples
-- symfony/polyfill-php83: digunakan secara internal (mis. untuk `str_increment`), memungkinkan kita menggunakan fungsi PHP baru di environment PHP 7.4.
+- symfony/polyfill-php83: dependency produksi (memudahkan `str_increment`/`str_decrement` dipakai; bawaan PHP >= 8.3)
 
 ### tests & howto
 

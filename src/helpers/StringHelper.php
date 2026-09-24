@@ -49,4 +49,38 @@ abstract class StringHelper
     {
         return preg_replace('/[^A-Za-z0-9 \-]/', '', strip_tags($value));
     }
+
+    /**
+     * potongan SEBELUM kemunculan pertama $needle; utuh bila needle tidak ditemukan.
+     *
+     * contoh: before('a.b.c', '.') => 'a' ; before('abc', '.') => 'abc'
+     *
+     * origin: konsep Str::before (illuminate) + jeemce Xmlmeta::keyShort (dot-segment)
+     */
+    public static function before($subject, $needle)
+    {
+        $subject = (string) $subject;
+        if ($needle === '' || $needle === null) {
+            return $subject;
+        }
+
+        $pos = strpos($subject, (string) $needle);
+        return $pos === false ? $subject : substr($subject, 0, $pos);
+    }
+
+    /**
+     * potongan SESUDAH kemunculan pertama $needle; utuh bila needle tidak ditemukan.
+     *
+     * contoh: after('a.b.c', '.') => 'b.c' ; before(after('a.b.c', '.'), '.') => 'b'
+     */
+    public static function after($subject, $needle)
+    {
+        $subject = (string) $subject;
+        if ($needle === '' || $needle === null) {
+            return $subject;
+        }
+
+        $pos = strpos($subject, (string) $needle);
+        return $pos === false ? $subject : substr($subject, $pos + strlen((string) $needle));
+    }
 }

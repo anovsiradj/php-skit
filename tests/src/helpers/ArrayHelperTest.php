@@ -46,6 +46,16 @@ Runner::getInstance()->runTest('ArrayHelper - removeVal', function () {
     $arr = ['a' => 'x', 'b' => ['c' => 'x', 'd' => 'y']];
     ArrayHelper::removeVal($arr, ['x']);
     Assert::equals(['b' => ['d' => 'y']], $arr);
+
+    $arr2 = ['a' => 'remove_me', 'b' => 'keep', 'c' => 'remove_too'];
+    ArrayHelper::removeVal($arr2, ['/^remove_/']);
+    Assert::equals(['b' => 'keep'], $arr2);
+});
+
+Runner::getInstance()->runTest('ArrayHelper - fill', function () {
+    Assert::equals(['a', 'a', 'a'], ArrayHelper::fill(3, 'a'));
+    Assert::equals([0, 2, 4], ArrayHelper::fill(3, fn ($i) => $i * 2));
+    Assert::equals([], ArrayHelper::fill(0, 'x'));
 });
 
 Runner::getInstance()->runTest('ArrayHelper - valExists', function () {

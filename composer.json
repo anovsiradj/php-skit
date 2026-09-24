@@ -17,16 +17,14 @@
         }
     },
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.0",
+        "symfony/polyfill-php83": "^1.41"
     },
     "require-dev": {
         "fakerphp/faker": "@dev",
         "symfony/dotenv": "@stable",
         "symfony/var-dumper": "@stable",
-        "phpoffice/phpspreadsheet": "~1",
-        "symfony/polyfill-php83": "^1.41",
-        "symfony/polyfill-php84": "^1.38",
-        "symfony/polyfill-php85": "^1.41"
+        "phpoffice/phpspreadsheet": "^5"
     },
     "scripts": {
         "test": "php tests/run.php"
