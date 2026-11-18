@@ -1,4 +1,3 @@
-
 # `php-skit`
 
 SKit (SimpleKit) for KISS (Keep It Simple, Stupid!)
@@ -82,4 +81,4 @@ php tests/run.php --filter "LetterHelper"
 # Lainnya
 
 Created By `anovsiradj`, 
-Logo Powered By `copilot.microsoft.com`.
+Logo Powered By `copilot.com`.
